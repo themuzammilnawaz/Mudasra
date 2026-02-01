@@ -20,7 +20,7 @@ export default function IntroScreen({ onNext, onStartMusic }) {
               filter: "drop-shadow(0 0 20px rgba(255,105,180,0.4))",
             }}
           >
-            A Cutiepie was born today, 20 years ago!
+            A Cutiepie was born on 22 January, 20 years ago!
           </h1>
           <p className="mt-4 text-xl text-pink-200">
             Yes, it’s YOU! A little surprise awaits...
