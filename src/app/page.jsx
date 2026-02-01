@@ -16,7 +16,7 @@ export default function HomePage() {
 
   const audioRef = useRef(null)
 
-  // 🔊 Start music ONLY on first user interaction
+  // 🎵 Start music ONLY once (IntroScreen button click)
   const startMusicOnce = () => {
     if (!audioRef.current || musicStarted) return
 
@@ -39,28 +39,32 @@ export default function HomePage() {
   }
 
   const screens = [
+    // 0 — Loader (NO music here)
     <LoaderScreen
       key="loader"
-      onDone={() => {
-        startMusicOnce()
-        setCurrentScreen(1)
-      }}
+      onDone={() => setCurrentScreen(1)}
     />,
+
+    // 1 — Intro (🎯 MUSIC STARTS HERE)
     <IntroScreen
       key="intro"
-      onNext={() => {
-        startMusicOnce()
-        setCurrentScreen(2)
-      }}
+      onStartMusic={startMusicOnce}
+      onNext={() => setCurrentScreen(2)}
     />,
+
+    // 2 — Cake
     <CakeScreen
       key="cake"
       onNext={() => setCurrentScreen(3)}
     />,
+
+    // 3 — Photos
     <PhotosScreen
       key="photos"
       onNext={() => setCurrentScreen(4)}
     />,
+
+    // 4 — Message
     <MessageScreen
       key="message"
       onNext={() => setCurrentScreen(5)}
@@ -70,7 +74,7 @@ export default function HomePage() {
   return (
     <main className="min-h-screen bg-gradient-to-tr from-rose-950/40 via-black to-rose-950/40 overflow-hidden relative">
 
-      {/* 🎵 Background Music (TOP-LEVEL, invisible) */}
+      {/* 🎵 Background Music (TOP LEVEL) */}
       <audio
         ref={audioRef}
         src="/music/bgm.mp3"
@@ -78,7 +82,7 @@ export default function HomePage() {
         preload="auto"
       />
 
-      {/* 🔊 Music Toggle Button */}
+      {/* 🔊 Music Toggle */}
       {musicStarted && (
         <button
           onClick={toggleMusic}
@@ -97,7 +101,7 @@ export default function HomePage() {
             exit={{ opacity: 0, transition: { duration: 0.8 } }}
             transition={{ duration: 0.8 }}
             className={`w-full ${
-              currentScreen === 4
+              currentScreen === 3
                 ? "max-w-7xl"
                 : "max-w-3xl md:max-w-4xl"
             }`}
